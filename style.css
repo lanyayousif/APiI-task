@@ -90,6 +90,7 @@ ul.lists li a{
     width: 100%;
     row-gap: 20px;
     column-gap: 20px;
+    margin-top: 3rem;
 }
 
 .card{
@@ -103,11 +104,11 @@ ul.lists li a{
 .img-box{
     position: relative;
     height: 200px;
+    overflow: hidden;
 }
 .img-box img{
     width: 100%;
-    height: 100%;
-    object-fit: fill;
+    object-fit: contain;
     object-position: center;
 }
 .img-box .state{

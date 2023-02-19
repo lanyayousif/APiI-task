@@ -1,6 +1,6 @@
-async function convertdata(){
+async function convertdata(link){
     try{
-        const fetchdata=await fetch('https://rickandmortyapi.com/api/character')
+        const fetchdata=await fetch(link)
         const data=await fetchdata.json()
         const cards=document.querySelector('.cards')
         let array= data.results;
@@ -22,9 +22,8 @@ async function convertdata(){
             
         })
 
-       
+        cards.innerHTML=""
         array.forEach((element,index) => {
-
             cards.innerHTML +=`
             <div class="card">
             <div class="img-box">
@@ -56,4 +55,23 @@ async function convertdata(){
     }
 }
 
-convertdata()
+let lod=true;
+if (lod===true) {
+    convertdata(`https://rickandmortyapi.com/api/character`)
+    lod=false
+}
+
+
+let inputText = document.querySelector("input");
+
+inputText.addEventListener("keyup", (e)=>{
+    e.preventDefault()
+let myInputText = e.target.value
+
+convertdata(`https://rickandmortyapi.com/api/character/?name=${myInputText}`)
+
+
+
+
+
+})
