@@ -13,19 +13,16 @@ async function convertdata(link){
             else{
                 return{
                     ...value,
-                    episodesate :"side"}
-            }
+                    episodesate :"side"}}
         })
 
         array=array.filter((value,index)=>{
-            return array[index].status =="Alive"
-            
-        })
+            return array[index].status =="Alive" })
 
         cards.innerHTML=""
-        array.forEach((element,index) => {
+        array.forEach((value,index) => {
             cards.innerHTML +=`
-            <div class="card">
+            <div class="card" id="${array[index].name}">
             <div class="img-box">
                 <img src="${array[index].image}" alt="">
                 <p class="state">${array[index].status}</p>
@@ -62,16 +59,46 @@ if (lod===true) {
 }
 
 
-let inputText = document.querySelector("input");
+// let inputText = document.querySelector("input");
 
-inputText.addEventListener("keyup", (e)=>{
-    e.preventDefault()
-let myInputText = e.target.value
+// inputText.addEventListener("keyup", (e)=>{
+//     e.preventDefault()
+// let myInputText = e.target.value
 
-convertdata(`https://rickandmortyapi.com/api/character/?name=${myInputText}`)
-
-
-
+// convertdata(`https://rickandmortyapi.com/api/character/?name=${myInputText}`)
+// })
 
 
-})
+document.getElementById("myinput").addEventListener("keyup", function(event) {
+    event.preventDefault(); 
+    search(`https://rickandmortyapi.com/api/character`)
+  });
+
+async function search(link){
+    const fetchdata=await fetch(link)
+    const data=await fetchdata.json()
+    let array= data.results;
+
+    let inputText = document.querySelector("input").value.toLowerCase();
+    let searchResults = document.getElementById("lists");
+    searchResults.innerHTML = "";
+
+    array=array.filter((value,index)=>{
+        return array[index].status =="Alive" })
+
+    array=array.filter((value,index)=>{
+            if(value.name.toLowerCase().includes(inputText) ){
+            return value.name.toLowerCase().includes(inputText)}
+            else{
+            return console.log("false")  }  
+    })
+
+   array.forEach((value,index)=>{
+        searchResults.innerHTML +=` <li class="list"><a href="#${value.name}">${value.name}</a></li>`
+    }) 
+}
+
+
+
+
+
